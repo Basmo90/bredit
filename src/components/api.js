@@ -2,11 +2,11 @@ import axios from 'axios';
 
 const PROXY_URL = 'http://localhost:5000/api/reddit';
 
-const REDDIT_API_URL = 'https://www.reddit.com';
+//const REDDIT_API_URL = 'https://www.reddit.com';
 
 export const fetchRedditPosts = async (query = '') => {
     try {
-        const url = query ? `${PROXY_URL}/search.json?q=${query}&restrtict_sr=1` : `${PROXY_URL}/.json`;
+        const url = query ? `${PROXY_URL}/search.json?q=${query}&restrict_sr=1` : `${PROXY_URL}/.json`;
         const response = await axios.get(url);
         
         console.log('API Response: ', response.data);

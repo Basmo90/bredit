@@ -1,6 +1,6 @@
 import logo from './Breddit logo.png';
 import './index.css';
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useCallback } from 'react';
 import { fetchRedditComments, fetchRedditPosts } from './components/api';
 import SearchBar from './components/searchBar';
 import renderContent from './components/render';
@@ -17,7 +17,7 @@ const [comments, setComments] = useState({});
 const [expandedPost, setExpandedPost] = useState(null);//track which post is expanded
 //const [upvotes, setUpvotes] = useState({});//state to track upvotes
 
-const getData = async () => {
+const getData = useCallback(async () => {
   try {
   const redditPosts = await fetchRedditPosts(query);
   console.log('Fetched Posts:', redditPosts);
@@ -25,11 +25,11 @@ const getData = async () => {
   } catch (error){
     console.error('Error fetching post:', error);
   }
-};
+}, [query]); //include query in dependancy array
 
   useEffect(() => {
     getData();
-  }, [query]);
+  }, [getData]);
 
   const handleSearch = (searchQuery) => {
     setQuery(searchQuery);
